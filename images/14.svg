@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="53.159" height="49.448" viewBox="0 0 53.159 49.448">
+  <defs>
+    <linearGradient id="18725392-35dd-469c-b321-eaf83728977c" x1="23.171" y1="33.548" x2="37.041" y2="33.548" gradientUnits="userSpaceOnUse">
+      <stop offset="0.163" stop-color="#ecbd83"/>
+      <stop offset="0.747" stop-color="#ffb003"/>
+    </linearGradient>
+    <radialGradient id="b86ddcad-dda2-46b5-bb4a-1e4191c8f945" cx="26.242" cy="167.285" r="13.716" gradientTransform="matrix(1, 0, 0, 1, -13.749, -144.175)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fcee81"/>
+      <stop offset="0.289" stop-color="#ffdf07"/>
+      <stop offset="0.747" stop-color="#ffb003"/>
+      <stop offset="1" stop-color="#ecbd83"/>
+    </radialGradient>
+    <radialGradient id="cd6da4b0-425a-477e-8302-3ab51d997315" cx="57.541" cy="180.519" r="7" gradientTransform="translate(-18.317 -174.636)" gradientUnits="userSpaceOnUse">
+      <stop offset="0.289" stop-color="#ffdf07"/>
+      <stop offset="0.747" stop-color="#ffb003"/>
+      <stop offset="1" stop-color="#ecbd83"/>
+    </radialGradient>
+    <radialGradient id="37947cd6-5c09-4a46-a97a-3ea813a8b39a" cx="-237.853" cy="801.46" r="9.569" gradientTransform="translate(280.605 -763.089)" xlink:href="#b86ddcad-dda2-46b5-bb4a-1e4191c8f945"/>
+    <radialGradient id="2a4e830a-17c9-4ff1-962f-44a7ad55ae2a" cx="10.732" cy="20.322" r="6.978" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset="0.739" stop-color="#fff" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="e3357e9a-b81d-457d-bb12-a57709fe33c1" cx="558.877" cy="-35.351" r="6.978" gradientTransform="translate(-271.423 19.933) scale(0.556 0.444)" xlink:href="#2a4e830a-17c9-4ff1-962f-44a7ad55ae2a"/>
+    <radialGradient id="04d357c8-3bae-4c72-ab63-b73f6fa4537c" cx="369.482" cy="58.592" r="8.472" gradientTransform="translate(-204.167 6.831) scale(0.667 0.504)" xlink:href="#2a4e830a-17c9-4ff1-962f-44a7ad55ae2a"/>
+    <linearGradient id="bfbd9eb8-5ba9-41db-bbc8-2ae034ce0ddb" x1="8.32" y1="11.196" x2="15.832" y2="30.833" gradientTransform="translate(4.799 -2.062) rotate(10.411)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fff" stop-opacity="0.5"/>
+      <stop offset="0.739" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="6d707e0d-fb7a-4acd-a9c9-8c90ae3216a9" x1="37.606" y1="1.51" x2="41.749" y2="11.653" gradientTransform="translate(1.921 -7.085) rotate(10.41)" xlink:href="#bfbd9eb8-5ba9-41db-bbc8-2ae034ce0ddb"/>
+  </defs>
+  <title>share</title>
+  <g id="4bf49a8c-4d71-492f-9e3b-204737e44035" data-name="Слой 2">
+    <g id="750ca00c-be43-4e85-b736-e4d410393d23" data-name="Layer 1">
+      <g>
+        <path id="0f921cda-7e1a-42af-b22f-9813cd5e2e4a" data-name="&lt;Контур&gt;" d="M20.536,13.545s3.247,1.733,5.594,1.019a12.391,12.391,0,0,0,5.521-3.929,7.55,7.55,0,0,0,1.293-4.079l4.592,6.99s-3.03-1-4.542-.573a11.961,11.961,0,0,0-5.123,3.979c-1.021,1.377-1.087,4.237-.834,5.594C25.523,20.116,20.536,13.545,20.536,13.545Z" fill="#f0c485"/>
+        <path id="27160de4-876a-4995-9e59-822c3bfb0547" data-name="&lt;Контур&gt;" d="M27.1,27.42a5.489,5.489,0,0,0,1.381,3.934,9.244,9.244,0,0,0,5.07,2.248,7.2,7.2,0,0,0,3.491-.43l-2.947,6.5a6.63,6.63,0,0,0-1.357-2.87,13.038,13.038,0,0,0-5.931-2.726,4.622,4.622,0,0,0-3.635.956C24.519,32.82,27.1,27.42,27.1,27.42Z" fill="url(#18725392-35dd-469c-b321-eaf83728977c)"/>
+        <circle id="e8fe5094-baab-430d-9bb5-e53d05bb62af" data-name="&lt;Контур&gt;" cx="13.718" cy="25.308" r="13.716" transform="translate(-4.347 2.896) rotate(-10.411)" fill="url(#b86ddcad-dda2-46b5-bb4a-1e4191c8f945)"/>
+        <circle id="ce1f96ff-7a6c-4b73-ab21-53128e6ffa33" data-name="&lt;Контур&gt;" cx="39.848" cy="7.001" r="7" transform="translate(-0.609 7.316) rotate(-10.41)" fill="url(#cd6da4b0-425a-477e-8302-3ab51d997315)"/>
+        <circle id="92ad637f-c54d-438e-a4e9-8f3e47d8d19a" data-name="&lt;Контур&gt;" cx="43.589" cy="39.878" r="9.569" transform="translate(-13.985 53.124) rotate(-55.411)" fill="url(#37947cd6-5c09-4a46-a97a-3ea813a8b39a)"/>
+        <ellipse id="1e8ea9e0-9ba1-426b-a55e-b36bdb25fdc1" data-name="&lt;Контур&gt;" cx="11.536" cy="21.045" rx="9" ry="4.5" fill="url(#2a4e830a-17c9-4ff1-962f-44a7ad55ae2a)"/>
+        <ellipse id="c091e318-31ef-427d-9baf-12c60a001761" data-name="&lt;Контур&gt;" cx="39.536" cy="4.545" rx="5" ry="2" fill="url(#e3357e9a-b81d-457d-bb12-a57709fe33c1)"/>
+        <ellipse id="e8628fe2-5f33-4350-a91b-9114a864ff3d" data-name="&lt;Контур&gt;" cx="42.536" cy="36.716" rx="6" ry="3.829" fill="url(#04d357c8-3bae-4c72-ab63-b73f6fa4537c)"/>
+        <circle id="ed35a613-49ef-46db-aa89-5137a1d33ce4" data-name="&lt;Контур&gt;" cx="13.718" cy="25.308" r="13.716" transform="translate(-4.347 2.896) rotate(-10.411)" fill="url(#bfbd9eb8-5ba9-41db-bbc8-2ae034ce0ddb)"/>
+        <circle id="5386c369-dab4-4221-a48d-7b6528d03945" data-name="&lt;Контур&gt;" cx="39.848" cy="7.001" r="7" transform="translate(-0.609 7.316) rotate(-10.41)" fill="url(#6d707e0d-fb7a-4acd-a9c9-8c90ae3216a9)"/>
+      </g>
+    </g>
+  </g>
+</svg>

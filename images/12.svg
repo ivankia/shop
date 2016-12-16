@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="53.271" height="37" viewBox="0 0 53.271 37">
+  <defs>
+    <linearGradient id="1673d371-f6d8-4aa0-baf6-844228dfcdf8" x1="16.063" y1="-4.607" x2="33.146" y2="33.226" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ffb103"/>
+      <stop offset="0.311" stop-color="#ffe408"/>
+      <stop offset="1" stop-color="#ff9500"/>
+    </linearGradient>
+    <linearGradient id="57af4f70-5083-492e-82fb-cd6f7fbe4d18" y1="22.25" x2="52" y2="22.25" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#696969"/>
+      <stop offset="1"/>
+    </linearGradient>
+    <linearGradient id="17033f36-7576-4b9e-850e-b9015ae55850" x1="4.001" y1="4.25" x2="52" y2="4.25" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#999"/>
+      <stop offset="1"/>
+    </linearGradient>
+    <linearGradient id="854e8ec8-231b-44fd-821a-a3e12945f4cf" x1="27.388" y1="1.836" x2="39.154" y2="34.164" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset="0.442" stop-color="#c5a133"/>
+      <stop offset="0.826" stop-color="#814f00"/>
+    </linearGradient>
+    <linearGradient id="95669a8c-eae6-489a-bedf-1a26ba403879" x1="19.546" y1="6.484" x2="46.996" y2="29.516" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ffe75e"/>
+      <stop offset="0.974" stop-color="#d38d1c"/>
+    </linearGradient>
+    <linearGradient id="801e3919-4c57-4bc3-bb56-dd0682f5f76a" x1="20.767" y1="5.649" x2="44.053" y2="28.649" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#edc14f" stop-opacity="0.098"/>
+      <stop offset="0.205" stop-color="#ffe75e" stop-opacity="0.6"/>
+      <stop offset="1" stop-color="#eab94e" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <title>sim</title>
+  <g id="b43af4a0-d9b2-4a6b-bf3d-a5d306bef82c" data-name="Слой 2">
+    <g id="13e5133f-f402-4c3f-875e-4d25040f99e5" data-name="Layer 1">
+      <g>
+        <path id="f3cd756e-e81a-46d6-bc9c-685ed7933d5e" data-name="&lt;Контур&gt;" d="M48.9,1H14.5a3.292,3.292,0,0,0-2.306.938L2.087,11.861A2.711,2.711,0,0,0,1.271,13.8V32.708A4.333,4.333,0,0,0,5.643,37H48.9a4.333,4.333,0,0,0,4.372-4.292V5.292A4.333,4.333,0,0,0,48.9,1Z" fill="#999"/>
+        <path id="99c4aea1-4471-4125-8e12-bd812c85e537" data-name="&lt;Контур&gt;" d="M47.9,0H13.5a3.292,3.292,0,0,0-2.306.938L1.087,10.861A2.711,2.711,0,0,0,.271,12.8V31.708A4.333,4.333,0,0,0,4.643,36H47.9a4.333,4.333,0,0,0,4.372-4.292V4.292A4.333,4.333,0,0,0,47.9,0Z" fill="url(#1673d371-f6d8-4aa0-baf6-844228dfcdf8)"/>
+        <rect id="b42b4f36-cdee-4568-8eac-4edc977a2a0f" data-name="&lt;Контур&gt;" y="17.25" width="52" height="10" fill="url(#57af4f70-5083-492e-82fb-cd6f7fbe4d18)"/>
+        <path id="4402369f-e55c-43b6-a384-5d43dd72f864" data-name="&lt;Контур&gt;" d="M47.9.25H13.5a3.292,3.292,0,0,0-2.306.938L4,8.25H52V4.292A3.9,3.9,0,0,0,47.9.25Z" fill="url(#17033f36-7576-4b9e-850e-b9015ae55850)"/>
+        <path id="e80b5b95-508d-4c60-960a-a705deebb1eb" data-name="&lt;Составной контур&gt;" d="M44.421,4h-22.3a3.854,3.854,0,0,0-3.85,3.85v20.3A3.854,3.854,0,0,0,22.121,32h22.3a3.854,3.854,0,0,0,3.85-3.85V7.85A3.854,3.854,0,0,0,44.421,4Z" fill="url(#854e8ec8-231b-44fd-821a-a3e12945f4cf)"/>
+        <rect id="9d938fee-5efe-4a5d-8265-ffcf52701373" data-name="&lt;Контур&gt;" x="19.271" y="5" width="28" height="26" rx="2.85" ry="2.85" fill="url(#95669a8c-eae6-489a-bedf-1a26ba403879)"/>
+        <rect id="a469c435-9929-46e3-ae98-379a0f5fb40b" data-name="&lt;Прямоугольник&gt;" x="19.271" y="14" width="10" height="1" fill="#845800"/>
+        <rect id="96bb833c-69ec-4770-a688-cb6980f365e6" data-name="&lt;Прямоугольник&gt;" x="15.771" y="17.5" width="26" height="1" transform="translate(46.771 -10.771) rotate(90)" fill="#845800"/>
+        <rect id="a7c36758-902e-4719-8b71-292f328b393c" data-name="&lt;Прямоугольник&gt;" x="23.271" y="18" width="27" height="1" transform="translate(55.271 -18.271) rotate(90)" fill="#845800"/>
+        <rect id="5eedc2fa-a519-4ff2-b6d4-389f8f4c6067" data-name="&lt;Прямоугольник&gt;" x="19.271" y="21" width="10" height="1" fill="#845800"/>
+        <rect id="16e630b3-9a39-4a94-b240-97cb70b804a9" data-name="&lt;Прямоугольник&gt;" x="37.271" y="14" width="10" height="1" fill="#845800"/>
+        <rect id="090cbda9-73e0-4bb1-a236-6cbc065de621" data-name="&lt;Прямоугольник&gt;" x="37.271" y="21" width="10" height="1" fill="#845800"/>
+        <path id="bb0409f3-a827-4f05-8c25-10b06a113806" data-name="&lt;Составной контур&gt;" d="M44.421,4h-22.3a3.854,3.854,0,0,0-3.85,3.85v20.3A3.854,3.854,0,0,0,22.121,32h22.3a3.854,3.854,0,0,0,3.85-3.85V7.85A3.854,3.854,0,0,0,44.421,4Z" fill="url(#801e3919-4c57-4bc3-bb56-dd0682f5f76a)"/>
+      </g>
+    </g>
+  </g>
+</svg>

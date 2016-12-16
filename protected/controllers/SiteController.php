@@ -1,7 +1,17 @@
 <?php
+require_once(YII_PATH.DS.'..'.DS.'vendor'.DS.'stripe'.DS.'vendor'.DS.'autoload.php');
 
 class SiteController extends Controller
 {
+    public function accessRules()
+    {
+        return array(
+            array('allow',
+                'users' => array('*'),
+            ),
+        );
+    }
+
     /**
      * Declares class-based actions.
      */
@@ -21,15 +31,96 @@ class SiteController extends Controller
         );
     }
 
+    public function actionResult()
+    {
+        dump($_REQUEST);
+        die();
+    }
+
+    public function actionCheckout($id)
+    {
+        $product = null;
+        // set product_id for payment
+        if ($id) {
+            Yii::app()->user->setState('productId', $id);
+            $product = Products::model()->find('product_id=' . (int)$id);
+        }
+
+        $stripe = array(
+            "secret_key" => Yii::app()->params['sk'],
+            "publishable_key" => Yii::app()->params['pk'],
+            "name" => $product->name,
+            "price" => (int)$product->price*100,
+        );
+
+        \Stripe\Stripe::setApiKey($stripe['secret_key']);
+
+        // check user email
+        if (!empty($_POST['userEmail'])) {
+            if (!preg_match('/([\w.-]+@([\w-]+)\.+\w{2,})/', trim($_POST['userEmail']))) {
+                $this->render('../orders/checkout', [
+                    'result' => 'invalid-email',
+                    'email' => trim($_POST['userEmail']),
+                    'message' => 'Введен неправильный E-mail!',
+                    'needEmail' => true
+                ]);
+                Yii::app()->end();
+            }
+
+            Yii::app()->user->setState('userEmail', trim($_POST['userEmail']));
+            $this->redirect(Yii::app()->createUrl('site/checkout/' . $id));
+        }
+
+        // payment
+        if (Yii::app()->user->getState('userEmail')) {
+            // response
+            if (!empty($_POST['stripeToken'])) {
+                $customer = \Stripe\Customer::create(array(
+                    'email' => Yii::app()->user->getState('userEmail'),
+                    'source' => $_POST['stripeToken']
+                ));
+
+                \Stripe\Charge::create(array(
+                    'customer' => $customer->id,
+                    'amount' => (int)$product->price*100,
+                    'currency' => $product->currency->code
+                ));
+
+                // store payment
+                $order = new Orders();
+                $order->product_id = $product->product_id;
+                $order->price = (int)$product->price*100;
+                $order->currency_id = $product->currency_id;
+                $order->email = Yii::app()->user->getState('userEmail');
+                $order->status = 1;
+
+                try {
+                    $order->save();
+                } catch (CDbException $ex) {
+                    throw new CException('Ошибка при сохранении платежа. ', $ex->getMessage());
+                }
+
+                $this->render('../orders/checkout', [
+                    'result' => 'success',
+                    'message' => 'Оплата ' . $this->priceFormat($product->price) . ' ' . $product->currency->code . ' произведена успешно!'
+                ]);
+
+                Yii::app()->end();
+            }
+
+            $this->render('../orders/checkout', ['stripe' => $stripe]);
+        } else {
+            $this->render('../orders/checkout', ['needEmail' => true]);
+        }
+    }
+
     /**
      * This is the default 'index' action that is invoked
      * when an action is not explicitly requested by users.
      */
     public function actionIndex()
     {
-        // renders the view file 'protected/views/site/index.php'
-        // using the default layout 'protected/views/layouts/main.php'
-        $this->render('index');
+        $this->render('index', ['dataProvider' => Products::model()->search()]);
     }
 
     /**
@@ -63,7 +154,7 @@ class SiteController extends Controller
             $model->attributes = $_POST['Login'];
             // validate user input and redirect to the previous page if valid
             if ($model->validate() && $model->login())
-                $this->redirect(Yii::app()->user->returnUrl);
+                $this->redirect(Yii::app()->request->baseUrl . '/products/index');
         }
         // display the login form
         $this->render('login', array('model' => $model));

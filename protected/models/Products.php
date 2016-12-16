@@ -12,6 +12,8 @@
  * @property string $created_at
  * @property string $modified_at
  * @property string $deleted_date
+ * @property string $image_ext
+ * @property string $image
  *
  * The followings are the available model relations:
  * @property Orders[] $orders
@@ -19,6 +21,7 @@
  */
 class Products extends CActiveRecord
 {
+    public $image;
     /**
      * Returns the static model of the specified AR class.
      * Please note that you should have this exact method in all your CActiveRecord descendants!
@@ -43,17 +46,17 @@ class Products extends CActiveRecord
      */
     public function rules()
     {
-        // NOTE: you should only define rules for those attributes that
-        // will receive user inputs.
         return array(
-            array('name, description, currency_id', 'required'),
-            array('currency_id', 'numerical', 'integerOnly' => true),
-            array('name', 'length', 'max' => 255),
-            array('price', 'length', 'max' => 19),
-            array('created_at, modified_at, deleted_date', 'safe'),
-            // The following rule is used by search().
-            // @todo Please remove those attributes that should not be searched.
-            array('product_id, name, description, price, currency_id, created_at, modified_at, deleted_date', 'safe', 'on' => 'search'),
+            array('name, description', 'required', 'message' => 'Необходимо заполнить'),
+            array('currency_id', 'required' ,'message' => 'Необходимо выбрать валюту'),
+            array('currency_id', 'numerical', 'integerOnly' => true, 'message' => 'Необходимо заполнить'),
+            array('name', 'length', 'max' => 255, 'message' => 'Максимальный размер 255 символов'),
+            array('price', 'length', 'max' => 19, 'message' => 'Максимальный размер 19 символов'),
+            array('price', 'match', 'pattern' => '/^\d{0,19}(\.\d{1,4})?$/', 'message' => 'Неверный формат цены'),
+            array('created_at, modified_at', 'safe'),
+            array('image', 'file', 'types' => 'jpg,jpeg,gif,png', 'allowEmpty' => true, 'maxSize' => 3145728, 'tooLarge' => 'Максимальный размер файла 3Mb', 'on' => 'upload'),
+
+            array('product_id, name, description, price', 'safe', 'on' => 'search'),
         );
     }
 
@@ -76,14 +79,14 @@ class Products extends CActiveRecord
     public function attributeLabels()
     {
         return array(
-            'product_id' => 'Product',
-            'name' => 'Name',
-            'description' => 'Description',
-            'price' => 'Price',
-            'currency_id' => 'Currency',
-            'created_at' => 'Created At',
-            'modified_at' => 'Modified At',
-            'deleted_date' => 'Deleted Date',
+            'product_id' => 'ID',
+            'name' => 'Пакет услуг',
+            'description' => 'Описание',
+            'price' => 'Цена',
+            'currency_id' => 'Валюта',
+            'created_at' => 'Создан',
+            'modified_at' => 'Обновлен',
+            'image' => 'Изображение',
         );
     }
 
@@ -101,18 +104,12 @@ class Products extends CActiveRecord
      */
     public function search()
     {
-        // @todo Please modify the following code to remove attributes that should not be searched.
-
         $criteria = new CDbCriteria;
 
         $criteria->compare('product_id', $this->product_id);
         $criteria->compare('name', $this->name, true);
         $criteria->compare('description', $this->description, true);
         $criteria->compare('price', $this->price, true);
-        $criteria->compare('currency_id', $this->currency_id);
-        $criteria->compare('created_at', $this->created_at, true);
-        $criteria->compare('modified_at', $this->modified_at, true);
-        $criteria->compare('deleted_date', $this->deleted_date, true);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,

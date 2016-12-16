@@ -1,7 +1,5 @@
 <?php
-
-// uncomment the following to define a path alias
-// Yii::setPathOfAlias('local','path/to/local-folder');
+Yii::setPathOfAlias('images', dirname(__FILE__) . DS . '..' . DS .  '..' . DS . 'images');
 
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
@@ -30,7 +28,6 @@ return array(
 
     // application components
     'components' => array(
-
         'user' => array(
             // enable cookie-based authentication
             'allowAutoLogin' => true,
@@ -38,7 +35,10 @@ return array(
 
         'urlManager' => array(
             'urlFormat' => 'path',
+            'showScriptName'=>false,
+            'urlSuffix' => '',
             'rules' => array(
+                '/' => 'site/index',
                 '<controller:\w+>/<id:\d+>' => '<controller>/view',
                 '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
                 '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
@@ -60,12 +60,9 @@ return array(
                     'class' => 'CFileLogRoute',
                     'levels' => 'error, warning',
                 ),
-                // uncomment the following to show log messages on web pages
-                /*
-                array(
-                    'class'=>'CWebLogRoute',
-                ),
-                */
+//                array(
+//                    'class'=>'CWebLogRoute',
+//                ),
             ),
         ),
 
@@ -76,5 +73,8 @@ return array(
     'params' => array(
         // this is used in contact page
         'adminEmail' => 'admin@shop.ee',
+        'pageSize' => 10,
+        'sk' => 'sk_test_kiCBUQIuJOR7kIjeRwfnfnt4',
+        'pk' => 'pk_test_LcYeet3Vn8i1Mzm0QhTECbBH',
     ),
 );

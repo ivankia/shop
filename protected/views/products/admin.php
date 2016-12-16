@@ -3,58 +3,45 @@
 /* @var $model Products */
 
 $this->breadcrumbs=array(
-	'Products'=>array('index'),
-	'Manage',
+	'Пакеты услуг'=>array('index'),
+	'Список',
 );
 
 $this->menu=array(
-	array('label'=>'List Products', 'url'=>array('index')),
-	array('label'=>'Create Products', 'url'=>array('create')),
+	array('label'=>'Создать новый', 'url'=>array('create')),
 );
-
-Yii::app()->clientScript->registerScript('search', "
-$('.search-button').click(function(){
-	$('.search-form').toggle();
-	return false;
-});
-$('.search-form form').submit(function(){
-	$('#products-grid').yiiGridView('update', {
-		data: $(this).serialize()
-	});
-	return false;
-});
-");
 ?>
 
-<h1>Manage Products</h1>
-
-<p>
-You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
-or <b>=</b>) at the beginning of each of your search values to specify how the comparison should be done.
-</p>
-
-<?php echo CHtml::link('Advanced Search','#',array('class'=>'search-button')); ?>
-<div class="search-form" style="display:none">
-<?php $this->renderPartial('_search',array(
-	'model'=>$model,
-)); ?>
-</div><!-- search-form -->
+<h1>Список пакетов услуг</h1>
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'products-grid',
 	'dataProvider'=>$model->search(),
-	'filter'=>$model,
+	'summaryText' => '',
+	'pager' => [],
 	'columns'=>array(
 		'product_id',
+		[
+			'name' => 'image',
+			'type' => 'raw',
+			'value' => function($data) { echo CHtml::image($this->baseImgUrl .  '/' . $data->product_id . '.' . $data->image_ext, $data->name); }
+		],
 		'name',
 		'description',
-		'price',
-		'currency_id',
-		'created_at',
-		/*
-		'modified_at',
-		'deleted_date',
-		*/
+		[
+			'name' => 'price',
+			'value' => function ($data) { echo $this->priceFormat($data->price); }
+		],
+		[
+			'name' => 'currency_id',
+			'type' => 'raw',
+			'value' => function($data) { echo Currency::model()->find('currency_id=:currency_id', ['currency_id' => $data->currency_id])->code; }
+		],
+		[
+			'name' => 'modified_at',
+			'type' => 'html',
+			'value' => function($data) { echo date('Y-m-d', strtotime($data->modified_at)); }
+		],
 		array(
 			'class'=>'CButtonColumn',
 		),

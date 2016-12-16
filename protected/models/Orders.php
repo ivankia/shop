@@ -19,6 +19,9 @@
  */
 class Orders extends CActiveRecord
 {
+    public $from_date;
+    public $to_date;
+
     /**
      * Returns the static model of the specified AR class.
      * Please note that you should have this exact method in all your CActiveRecord descendants!
@@ -43,17 +46,8 @@ class Orders extends CActiveRecord
      */
     public function rules()
     {
-        // NOTE: you should only define rules for those attributes that
-        // will receive user inputs.
         return array(
-            array('email, product_id, currency_id', 'required'),
-            array('product_id, currency_id, status', 'numerical', 'integerOnly' => true),
-            array('email', 'length', 'max' => 255),
-            array('price', 'length', 'max' => 19),
-            array('created_at, modified_at', 'safe'),
-            // The following rule is used by search().
-            // @todo Please remove those attributes that should not be searched.
-            array('order_id, email, product_id, price, currency_id, created_at, modified_at, status', 'safe', 'on' => 'search'),
+            array('email, product_id, created_at, from_date, to_date', 'safe', 'on' => 'search'),
         );
     }
 
@@ -76,14 +70,14 @@ class Orders extends CActiveRecord
     public function attributeLabels()
     {
         return array(
-            'order_id' => 'Order',
-            'email' => 'Email',
-            'product_id' => 'Product',
-            'price' => 'Price',
-            'currency_id' => 'Currency',
-            'created_at' => 'Created At',
-            'modified_at' => 'Modified At',
-            'status' => 'Status',
+            'order_id' => 'ID',
+            'email' => 'E-mail',
+            'product_id' => 'Пакет услуг',
+            'price' => 'Стоимость',
+            'currency_id' => 'Валюта',
+            'created_at' => 'Дата покупки',
+            'modified_at' => 'Обновлено',
+            'status' => 'Статус',
         );
     }
 
@@ -101,21 +95,110 @@ class Orders extends CActiveRecord
      */
     public function search()
     {
-        // @todo Please modify the following code to remove attributes that should not be searched.
-
         $criteria = new CDbCriteria;
 
-        $criteria->compare('order_id', $this->order_id);
-        $criteria->compare('email', $this->email, true);
-        $criteria->compare('product_id', $this->product_id);
-        $criteria->compare('price', $this->price, true);
-        $criteria->compare('currency_id', $this->currency_id);
-        $criteria->compare('created_at', $this->created_at, true);
-        $criteria->compare('modified_at', $this->modified_at, true);
-        $criteria->compare('status', $this->status);
+        if (!empty($this->from_date) && empty($this->to_date)) {
+            $criteria->condition = "created_at >= '$this->from_date'";
+        } elseif (!empty($this->to_date) && empty($this->from_date)) {
+            $criteria->condition = "created_at <= '$this->to_date 23:59:59'";
+        } elseif(!empty($this->to_date) && !empty($this->from_date)) {
+            $criteria->condition = "created_at  >= '$this->from_date' AND created_at <= '$this->to_date 23:59:59'";
+        }
 
-        return new CActiveDataProvider($this, array(
+        if ($this->product_id) {
+            $criteria->having = 'product_id=' . $this->product_id;
+        }
+        if ($this->email) {
+            $criteria->having = "email LIKE '%" . addslashes($this->email) . "%'";
+        }
+
+        $criteria->with = Products::model()->findAll();
+        $criteria->with = Currency::model()->findAll();
+
+        $pagination = new CPagination;
+        $pagination->pageSize = Yii::app()->params['pageSize'];
+
+        $result = new CActiveDataProvider($this, [
             'criteria' => $criteria,
-        ));
+            'pagination' => $pagination,
+        ]);
+
+        $data = $result->getData();
+
+        if (!isset($data[0])) {
+            return $result;
+        }
+
+        $currencyList = [];
+        $defaultCurrencyCode = '';
+        $currency = Currency::model()->findAll();
+
+        foreach ($currency as $val) {
+            $currencyList[$val->currency_id] = [
+                'ratio' => $val->ratio,
+                'code' => $val->code,
+            ];
+            if ($val->ratio == 1) {
+                $defaultCurrencyCode = $val->code;
+            }
+        }
+
+        // count total in default currency
+        $total = 0;
+        foreach ($data as $key=>$val) {
+            $price = $val->getPrice();
+
+            if ($currencyList[$val->currency_id]['ratio'] != 1) {
+                $price = $currencyList[$val->currency_id]['ratio'] * $price;
+            }
+
+            $total += $price;
+        }
+        $total = $total . ' ' . $defaultCurrencyCode . ' (Default currency)';
+
+        // clone Order object
+        // erase data
+        $new = clone $data[0];
+
+        foreach ($new->product->getAttributes() as $attribute=>$val) {
+            $new->product->setAttribute($attribute, '');
+        }
+        foreach ($new->currency->getAttributes() as $attribute=>$val) {
+            $new->currency->setAttribute($attribute, '');
+        }
+        foreach ($new->getAttributes() as $attribute=>$val) {
+            $new->setAttribute($attribute, '');
+        }
+
+        $new->price = $total;
+        $new->product->price = '<b>Итого:</b>';
+
+        //add to last row of table
+        array_push($data, $new);
+
+        $result->setData($data);
+
+        return $result;
+
+    }
+
+    public function getPrice() {
+        return $this->price;
+    }
+
+    public function getCurrency() {
+        return $this->currency;
+    }
+
+    public static function getTotal($ids)
+    {
+        $results = Orders::model()->findAll('order_id IN (' . join(',', $ids) . ')');
+
+        $total = 0;
+        foreach ($results as $key=>$val) {
+            $total += $val->price;
+        }
+
+        return $total;
     }
 }

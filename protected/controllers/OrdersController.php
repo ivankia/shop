@@ -3,17 +3,6 @@
 class OrdersController extends Controller
 {
     /**
-     * Displays a particular model.
-     * @param integer $id the ID of the model to be displayed
-     */
-    public function actionView($id)
-    {
-        $this->render('view', array(
-            'model' => $this->loadModel($id),
-        ));
-    }
-
-    /**
      * Returns the data model based on the primary key given in the GET variable.
      * If the data model is not found, an HTTP exception will be raised.
      * @param integer $id the ID of the model to be loaded
@@ -29,73 +18,11 @@ class OrdersController extends Controller
     }
 
     /**
-     * Creates a new model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     */
-    public function actionCreate()
-    {
-        $model = new Orders;
-
-        // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
-
-        if (isset($_POST['Orders'])) {
-            $model->attributes = $_POST['Orders'];
-            if ($model->save())
-                $this->redirect(array('view', 'id' => $model->order_id));
-        }
-
-        $this->render('create', array(
-            'model' => $model,
-        ));
-    }
-
-    /**
-     * Updates a particular model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id the ID of the model to be updated
-     */
-    public function actionUpdate($id)
-    {
-        $model = $this->loadModel($id);
-
-        // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
-
-        if (isset($_POST['Orders'])) {
-            $model->attributes = $_POST['Orders'];
-            if ($model->save())
-                $this->redirect(array('view', 'id' => $model->order_id));
-        }
-
-        $this->render('update', array(
-            'model' => $model,
-        ));
-    }
-
-    /**
-     * Deletes a particular model.
-     * If deletion is successful, the browser will be redirected to the 'admin' page.
-     * @param integer $id the ID of the model to be deleted
-     */
-    public function actionDelete($id)
-    {
-        $this->loadModel($id)->delete();
-
-        // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-        if (!isset($_GET['ajax']))
-            $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
-    }
-
-    /**
      * Lists all models.
      */
     public function actionIndex()
     {
-        $dataProvider = new CActiveDataProvider('Orders');
-        $this->render('index', array(
-            'dataProvider' => $dataProvider,
-        ));
+        $this->actionAdmin();
     }
 
     /**
@@ -104,13 +31,23 @@ class OrdersController extends Controller
     public function actionAdmin()
     {
         $model = new Orders('search');
-        $model->unsetAttributes();  // clear any default values
-        if (isset($_GET['Orders']))
+        $model->unsetAttributes();
+
+        if (isset($_GET['Orders'])) {
             $model->attributes = $_GET['Orders'];
+        }
+
+        $model->from_date = !empty($_GET['from_date']) ? $_GET['from_date'] : date('Y-m-01');
+        $model->to_date = !empty($_GET['to_date']) ? $_GET['to_date'] : date('Y-m-t');
 
         $this->render('admin', array(
             'model' => $model,
         ));
+    }
+
+    public function getTotal($ids)
+    {
+        return Orders::getTotal($ids);
     }
 
     /**

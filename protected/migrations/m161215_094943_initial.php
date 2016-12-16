@@ -16,11 +16,11 @@ class m161215_094943_initial extends CDbMigration
             'product_id' => 'pk',
             'name' => 'string not null',
             'description' => 'text not null',
+            'image_ext' => 'string',
             'price' => 'money',
             'currency_id' => 'integer not null',
             'created_at' => 'datetime default CURRENT_TIMESTAMP',
             'modified_at' => 'datetime default CURRENT_TIMESTAMP',
-            'deleted_date' => 'datetime default \'1970-01-01 00:00:00\'',
         ]);
 
         $this->createTable('orders', [
@@ -38,14 +38,15 @@ class m161215_094943_initial extends CDbMigration
             'currency_id' => 'pk',
             'code' => 'string not null',
             'ratio' => 'float',
-            'deleted_date' => 'datetime default \'1970-01-01 00:00:00\'',
         ]);
 
         $this->addForeignKey('products_currency_fk_1', 'products', 'currency_id', 'currency', 'currency_id', 'RESTRICT', 'CASCADE');
         $this->addForeignKey('orders_products_fk_1', 'orders', 'product_id', 'products', 'product_id', 'RESTRICT', 'CASCADE');
         $this->addForeignKey('orders_currency_fk_1', 'orders', 'currency_id', 'currency', 'currency_id', 'RESTRICT', 'CASCADE');
 
-        $this->insert('users', ['name' => 'John Doe', 'email' => 'admin@shop.ee', 'password' => '21232f297a57a5a743894a0e4a801fc3']);
+        $this->insert('users', ['name' => 'John Doe', 'email' => 'admin@admin.com', 'password' => '21232f297a57a5a743894a0e4a801fc3']);
+        $this->insert('currency', ['code' => 'USD', 'ratio' => '1']);
+        $this->insert('currency', ['code' => 'EUR', 'ratio' => '1.3']);
 
         return true;
 	}

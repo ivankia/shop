@@ -42,8 +42,6 @@ class Users extends CActiveRecord
             array('name, email, password', 'required'),
             array('active', 'numerical', 'integerOnly' => true),
             array('name, email, password', 'length', 'max' => 255),
-            // The following rule is used by search().
-            // @todo Please remove those attributes that should not be searched.
             array('user_id, name, email, password, active', 'safe', 'on' => 'search'),
         );
     }
@@ -86,8 +84,6 @@ class Users extends CActiveRecord
      */
     public function search()
     {
-        // @todo Please modify the following code to remove attributes that should not be searched.
-
         $criteria = new CDbCriteria;
 
         $criteria->compare('user_id', $this->user_id);

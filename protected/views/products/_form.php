@@ -8,16 +8,11 @@
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'products-form',
-	// Please note: When you enable ajax validation, make sure the corresponding
-	// controller action is handling ajax validation correctly.
-	// There is a call to performAjaxValidation() commented in generated controller code.
-	// See class documentation of CActiveForm for details on this.
 	'enableAjaxValidation'=>false,
+	'htmlOptions' => [
+		'enctype'=>'multipart/form-data'
+	],
 )); ?>
-
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
-
-	<?php echo $form->errorSummary($model); ?>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'name'); ?>
@@ -39,30 +34,40 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'currency_id'); ?>
-		<?php echo $form->textField($model,'currency_id'); ?>
+		<?php echo $form->dropDownList(Currency::model(), 'currency_id',
+			CHtml::listData(Currency::model()->findAll(), 'currency_id', 'code'), [
+				'empty' => 'Выберите валюту', 'options' => isset($model->currency_id) ? [$model->currency_id => ['selected' => true]] : []
+			]); ?>
 		<?php echo $form->error($model,'currency_id'); ?>
 	</div>
 
+	<?php if ($model->image_ext): ?>
+	<div class="row">
+		<?php echo $form->labelEx($model,'image'); ?>
+		<?php echo '<img src="' . $model->image . '" alt="' . $model->name . '" />'; ?>
+	</div>
+	<?php endif; ?>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'image'); ?>
+		<?php echo $form->fileField($model, 'image'); ?>
+		<?php echo $form->error($model,'image'); ?>
+	</div>
+
+	<?php if (!$model->isNewRecord): ?>
 	<div class="row">
 		<?php echo $form->labelEx($model,'created_at'); ?>
-		<?php echo $form->textField($model,'created_at'); ?>
-		<?php echo $form->error($model,'created_at'); ?>
+		<?php echo $form->textField($model,'created_at', ['readonly' => true]); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'modified_at'); ?>
-		<?php echo $form->textField($model,'modified_at'); ?>
-		<?php echo $form->error($model,'modified_at'); ?>
+		<?php echo $form->textField($model,'modified_at', ['readonly' => true]); ?>
 	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'deleted_date'); ?>
-		<?php echo $form->textField($model,'deleted_date'); ?>
-		<?php echo $form->error($model,'deleted_date'); ?>
-	</div>
+	<?php endif; ?>
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
+		<?php echo CHtml::submitButton($model->isNewRecord ? 'Создать' : 'Сохранить'); ?>
 	</div>
 
 <?php $this->endWidget(); ?>
